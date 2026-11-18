@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CONDUFACIL · Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--asfalto:#1c1f26;--panel:#262a33;--panel2:#2f343f;--linea:#f6c61b;--tiza:#f3f0e8;--gris:#9aa0ad;--verde:#2fbf71;--rojo:#e4513f;--azul:#4aa3df}
+*{box-sizing:border-box;margin:0}
+body{background:var(--asfalto);color:var(--tiza);font:15px/1.5 Barlow,system-ui,sans-serif;display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+h1,h2,h3,.placa{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.02em}
+aside{padding:22px 18px;border-right:4px dashed var(--linea);display:flex;flex-direction:column;gap:22px}
+.placa{background:var(--linea);color:#14161b;border:3px solid #14161b;outline:3px solid var(--linea);border-radius:8px;text-align:center;font-size:26px;padding:4px 8px;line-height:1.1}
+.placa small{display:block;font:600 11px Barlow;letter-spacing:.14em}
+nav{display:flex;flex-direction:column;gap:4px}
+nav button{background:none;border:0;color:var(--gris);text-align:left;font:600 16px Barlow;padding:10px 12px;border-radius:8px;cursor:pointer}
+nav button:hover{background:var(--panel);color:var(--tiza)}
+nav button[aria-current=true]{background:var(--panel2);color:var(--linea)}
+:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+main{padding:24px 28px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:12px}
+.top h1{font-size:38px;line-height:1}
+.top p{color:var(--gris)}
+.cars{display:flex;align-items:center;gap:0;flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:24px}
+.gauge{background:var(--panel);border-radius:14px;padding:14px 14px 12px;text-align:center}
+.gauge svg{width:100%;max-width:150px}
+.gauge b{font:700 32px 'Barlow Condensed';display:block;margin-top:-34px}
+.gauge span{color:var(--gris);font-size:13px}
+.card{background:var(--panel);border-radius:14px;padding:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:22px}
+.card h3{font-size:22px}
+.badge{display:inline-block;background:var(--linea);color:#14161b;font:700 13px 'Barlow Condensed';padding:1px 8px;border-radius:4px;margin-right:6px}
+.bar{height:8px;background:var(--panel2);border-radius:4px;overflow:hidden;margin:6px 0 4px;min-width:70px}
+.bar i{display:block;height:100%;background:var(--verde)}
+h2{font-size:26px;margin:6px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tw{overflow-x:auto;background:var(--panel);border-radius:14px;margin-bottom:22px}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{text-align:left;font:600 13px Barlow;color:var(--gris);padding:10px 14px;border-bottom:1px solid var(--panel2)}
+td{padding:10px 14px;border-bottom:1px solid var(--panel2)}
+tr:last-child td{border:0}
+.vacio{color:var(--gris);text-align:center;padding:22px}
+.chip{font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--panel2);text-transform:capitalize}
+.chip.confirmada,.chip.matriculado,.chip.lista,.chip.finalizada,.chip.enviado,.chip.disponible,.chip.activa{background:#1d4d36;color:#8be6b5}
+.chip.solicitada,.chip.aviso,.chip.avisado,.chip.prospecto{background:#5a4a10;color:#ffd95e}
+.chip.cancelada{background:#5a2420;color:#ff9d90}
+.chip.en_tramite{background:#1c4766;color:#9fd3f5}
+.btn{background:var(--linea);color:#14161b;border:0;border-radius:8px;font:700 14px Barlow;padding:6px 12px;cursor:pointer}
+.btn.sec{background:var(--panel2);color:var(--tiza)}
+.btn.mal{background:#5a2420;color:#ffb4a9}
+.chat{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.msg{padding:7px 11px;border-radius:12px;margin:5px 0;max-width:88%;white-space:pre-wrap;font-size:14px}
+.msg.user{background:var(--panel2)}
+.msg.assistant{background:#2d4a2f;margin-left:auto}
+.sim{display:flex;gap:8px;margin-top:10px}
+.sim input{flex:1;background:var(--asfalto);border:1px solid var(--panel2);color:var(--tiza);border-radius:8px;padding:9px 12px;font:inherit}
+@media(max-width:760px){body{grid-template-columns:1fr}aside{border-right:0;border-bottom:4px dashed var(--linea);padding:14px}nav{flex-direction:row;overflow-x:auto}nav button{white-space:nowrap}.cars{display:none}main{padding:18px 14px}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="placa"><small>COLOMBIA</small>CONDUFACIL</div>
+  <nav id="nav"></nav>
+</aside>
+<main>
+  <div class="top">
+    <div><h1 id="titulo"></h1><p id="sub"></p></div>
+    <div class="cars" aria-hidden="true">
+      <svg viewBox="0 0 200 70" width="170"><path d="M10 50 L16 38 Q22 31 36 29 L62 13 Q68 8 80 8 H122 Q134 8 142 16 L160 31 Q184 33 190 44 V52 H10Z" fill="#f6c61b"/><path d="M72 16 H120 Q128 16 134 22 L146 31 H60 Z" fill="#1c1f26"/><circle cx="52" cy="54" r="12" fill="#14161b" stroke="#f3f0e8" stroke-width="3"/><circle cx="150" cy="54" r="12" fill="#14161b" stroke="#f3f0e8" stroke-width="3"/></svg>
+    </div>
+  </div>
+  <div id="vista"></div>
+</main>
+
+<script>
+// ⚠️ Cambia esta URL por el dominio de tu servicio en Railway
+const API = 'https://TU-SERVICIO.up.railway.app';
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+const D = {}; let tab = 'resumen', chats = [], todo = false, sim = [];
+
+async function api(p, o = {}) {
+  const r = await fetch(API + '/api/' + p, { ...o, headers: { 'content-type': 'application/json', 'x-dash-key': store.get('key') || '' }, body: o.body ? JSON.stringify(o.body) : undefined });
+  if (r.status === 401) { const k = prompt('Clave del panel (DASH_KEY)'); if (k) { store.set('key', k); return api(p, o); } throw new Error('Sin clave'); }
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function load() {
+  const n = ['citas', 'alumnos', 'cursos', 'inscripciones', 'instructores', 'vehiculos', 'renovaciones', 'servicios'];
+  try { const r = await Promise.all(n.map((x) => api(x))); n.forEach((x, i) => (D[x] = r[i])); if (tab === 'chats') chats = await api('conversaciones' + (todo ? '?todo=1' : '')); draw(); }
+  catch (e) { $('#vista').innerHTML = `<div class="card">No pude conectar con el servidor. Revisa la URL de API en index.html y que Railway esté activo.<br><small>${esc(e.message)}</small></div>`; }
+}
+const chip = (s) => `<span class="chip ${esc(s)}">${esc(String(s).replace('_', ' '))}</span>`;
+const tabla = (cols, rows) => `<div class="tw"><table><thead><tr>${cols.map((c) => `<th>${c[0]}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${cols.map((c) => `<td>${c[1](r)}</td>`).join('')}</tr>`).join('') || '<tr><td colspan="9" class="vacio">Sin registros todavía</td></tr>'}</tbody></table></div>`;
+const gauge = (v, max, label, color) => { const p = Math.min(1, v / (max || 1)); return `<div class="gauge"><svg viewBox="0 0 120 70"><path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="#2f343f" stroke-width="10" stroke-linecap="round"/><path d="M10 62 A50 50 0 0 1 110 62" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${(p * 157).toFixed(1)} 157"/></svg><b>${v}</b><span>${label}</span></div>`; };
+const hoy = () => new Date(Date.now() - 5 * 36e5).toISOString().slice(0, 10);
+
+const V = {
+  resumen() {
+    const h = hoy(), act = D.citas.filter((c) => c.estado !== 'cancelada');
+    const cupos = D.cursos.reduce((s, c) => s + (c.cupos || 0), 0), insc = D.inscripciones.filter((i) => i.estado === 'activa').length;
+    const prox = act.filter((c) => c.fecha >= h).sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora)).slice(0, 8);
+    return `<div class="grid">
+      ${gauge(act.filter((c) => c.fecha === h).length, 8, 'clases hoy', '#f6c61b')}
+      ${gauge(D.renovaciones.filter((r) => ['solicitada', 'en_tramite'].includes(r.estado)).length, Math.max(D.renovaciones.length, 1), 'renovaciones en trámite', '#e4513f')}
+      ${gauge(D.alumnos.filter((a) => a.estado === 'matriculado').length, Math.max(D.alumnos.length, 1), 'alumnos matriculados', '#2fbf71')}
+      ${gauge(insc, cupos, 'cupos de academia usados', '#4aa3df')}</div>
+      <h2>Próximas clases</h2>${tablaCitas(prox, false)}`;
+  },
+  clases() { return `<h2>Agenda de clases</h2>${tablaCitas(D.citas, true)}`; },
+  alumnos() {
+    return `<h2>Alumnos <button class="btn" onclick="add('alumnos',[['nombre','Nombre completo'],['telefono','Teléfono (57...)'],['categoria','Categoría (A2/B1/C1)']])">+ Nuevo alumno</button></h2>` +
+      tabla([['Nombre', (r) => esc(r.nombre || '—')], ['Teléfono', (r) => esc(r.telefono)], ['Cédula', (r) => esc(r.cedula || '—')], ['Categoría', (r) => esc(r.categoria || '—')], ['Estado', (r) => chip(r.estado)]], D.alumnos);
+  },
+  academia() {
+    const ins = (id) => D.inscripciones.filter((i) => i.curso_id === id && i.estado === 'activa').length;
+    return `<h2>Cursos <button class="btn" onclick="add('cursos',[['nombre','Nombre del curso'],['categoria','Categoría'],['horas_teoricas','Horas teóricas'],['horas_practicas','Horas prácticas'],['precio','Precio (solo número)'],['cupos','Cupos'],['inicio','Inicio (AAAA-MM-DD)']])">+ Nuevo curso</button></h2>
+      <div class="cards">${D.cursos.map((c) => `<div class="card"><h3><span class="badge">${esc(c.categoria)}</span>${esc(c.nombre)}</h3>
+        <p>${c.horas_teoricas} h teóricas · ${c.horas_practicas} h prácticas</p><p>$${Number(c.precio).toLocaleString('es-CO')} · inicia ${esc(c.inicio || 'por definir')}</p>
+        <div class="bar"><i style="width:${Math.min(100, (ins(c.id) / (c.cupos || 1)) * 100)}%"></i></div><small>${ins(c.id)} de ${c.cupos} cupos</small> <button class="btn sec" style="float:right" onclick="precio('cursos',${c.id})">Cambiar precio</button></div>`).join('')}</div>
+      <h2>Inscripciones y avance</h2>` +
+      tabla([['Alumno', (r) => esc(r.alumno || '—')], ['Curso', (r) => esc(r.curso || '—')],
+        ['Horas prácticas', (r) => `<div class="bar"><i style="width:${Math.min(100, (r.horas_hechas / (r.horas_practicas || 1)) * 100)}%"></i></div><small>${r.horas_hechas}/${r.horas_practicas}</small>`],
+        ['Estado', (r) => chip(r.estado)],
+        ['', (r) => r.estado === 'activa' ? `<button class="btn sec" onclick="patch('inscripciones',${r.id},{horas_hechas:${r.horas_hechas + 1}})">+1 h</button> <button class="btn" onclick="patch('inscripciones',${r.id},{estado:'finalizada'})">Finalizar</button>` : '']], D.inscripciones);
+  },
+  flota() {
+    const ins = Object.fromEntries(D.instructores.map((i) => [i.id, i.nombre]));
+    return `<h2>Vehículos <button class="btn" onclick="add('vehiculos',[['placa','Placa'],['tipo','Tipo (Carro/Moto)'],['modelo','Modelo y año']])">+ Nuevo vehículo</button></h2>` +
+      tabla([['Placa', (r) => `<b class="placa" style="font-size:16px;padding:1px 8px;background:var(--linea);color:#14161b;border-radius:4px">${esc(r.placa)}</b>`], ['Tipo', (r) => esc(r.tipo)], ['Modelo', (r) => esc(r.modelo)], ['Instructor', (r) => esc(ins[r.instructor_id] || '—')], ['Estado', (r) => chip(r.estado)]], D.vehiculos) +
+      `<h2>Instructores <button class="btn" onclick="add('instructores',[['nombre','Nombre'],['telefono','Teléfono'],['categoria','Categoría']])">+ Nuevo instructor</button></h2>` +
+      tabla([['Nombre', (r) => esc(r.nombre)], ['Teléfono', (r) => esc(r.telefono || '—')], ['Categoría', (r) => esc(r.categoria || '—')]], D.instructores);
+  },
+  renovaciones() {
+    return `<h2>Renovaciones de licencia <button class="btn" onclick="add('renovaciones',[['nombre','Nombre completo'],['telefono','WhatsApp (57...)'],['categoria','Categoría (A2, B1, C1...)'],['vence','Vence (AAAA-MM-DD)']],{estado:'aviso'})">+ Registrar licencia para aviso</button></h2>
+      <p style="color:var(--gris);margin-bottom:10px">Las licencias en “aviso” reciben un WhatsApp automático 30 días antes de vencer.</p>` +
+      tabla([['Nombre', (r) => esc(r.nombre || '—')], ['WhatsApp', (r) => esc(r.telefono || '—')], ['Categoría', (r) => esc(r.categoria || '—')], ['Vence', (r) => esc(r.vence || '—')], ['Estado', (r) => chip(r.estado)],
+        ['', (r) => `${['solicitada', 'aviso', 'avisado'].includes(r.estado) ? `<button class="btn sec" onclick="patch('renovaciones',${r.id},{estado:'en_tramite'})">En trámite</button> ` : ''}${r.estado !== 'lista' ? `<button class="btn" onclick="patch('renovaciones',${r.id},{estado:'lista'})">Marcar lista</button>` : ''}`]], D.renovaciones);
+  },
+  servicios() {
+    return `<h2>Servicios y precios 2026 <button class="btn" onclick="add('servicios',[['categoria','Categoría (Clases, Renovaciones, Otros)'],['nombre','Servicio'],['precio','Precio (solo número)']])">+ Nuevo servicio</button></h2>
+      <p style="color:var(--gris);margin-bottom:10px">Piloto cotiza con esta lista y con los cursos de Academia. Los derechos de tránsito se pagan aparte en el organismo de tránsito.</p>` +
+      tabla([['Categoría', (r) => esc(r.categoria)], ['Servicio', (r) => esc(r.nombre)], ['Precio', (r) => '$' + Number(r.precio).toLocaleString('es-CO')], ['', (r) => `<button class="btn sec" onclick="precio('servicios',${r.id})">Cambiar precio</button>`]], D.servicios.filter((x) => x.activo));
+  },
+  chats() {
+    const g = {}; [...chats].reverse().forEach((m) => (g[m.telefono] ||= { n: m.nombre, m: [] }).m.push(m));
+    return `<h2>Probar a Piloto</h2><div class="card"><div id="simlog">${sim.map((m) => `<div class="msg ${m.r}">${esc(m.t)}</div>`).join('') || '<small>Escribe como si fueras un alumno: “quiero renovar mi licencia B1” o “una clase el viernes a las 9”.</small>'}</div>
+      <div class="sim"><input id="simtxt" placeholder="Mensaje de prueba" onkeydown="if(event.key==='Enter')probar()"><button class="btn" onclick="probar()">Enviar</button></div></div>
+      <h2 style="margin-top:22px">Conversaciones <button class="btn sec" onclick="todo=!todo;load()">${todo ? 'Ver últimos 7 días' : 'Ver historial completo'}</button></h2>
+      <div class="chat">${Object.entries(g).map(([t, c]) => `<div class="card"><h3>${esc(c.n || t)}</h3><small>${esc(t)}</small>${c.m.map((m) => `<div class="msg ${m.rol}">${esc(m.texto)}</div>`).join('')}</div>`).join('') || '<div class="card vacio">Aún no hay conversaciones</div>'}</div>`;
+  },
+};
+function tablaCitas(rows, acc) {
+  return tabla([['Fecha', (r) => esc(r.fecha)], ['Hora', (r) => esc(r.hora)], ['Alumno', (r) => esc(r.nombre || r.telefono)], ['Servicio', (r) => esc(r.servicio)], ['Estado', (r) => chip(r.estado)], ['Recordatorio', (r) => (r.r24 || r.r2 ? chip('enviado') : '—')],
+    ...(acc ? [['', (r) => r.estado !== 'cancelada' ? `<button class="btn mal" onclick="if(confirm('¿Cancelar esta clase?'))patch('citas',${r.id},{estado:'cancelada'})">Cancelar</button>` : '']] : [])], rows);
+}
+const TABS = [['resumen', 'Resumen', 'Así va la escuela hoy'], ['clases', 'Clases', 'Agenda sincronizada con Google Calendar'], ['alumnos', 'Alumnos', 'Quién escribe y quién ya se matriculó'], ['academia', 'Academia', 'Cursos, cupos y avance de cada alumno'], ['renovaciones', 'Renovaciones', 'Licencias por vencer y trámites en curso'], ['servicios', 'Servicios', 'Catálogo y precios 2026'], ['flota', 'Flota', 'Vehículos e instructores'], ['chats', 'Chats', 'Lo que conversa Piloto en WhatsApp']];
+function draw() {
+  $('#nav').innerHTML = TABS.map((t) => `<button aria-current="${t[0] === tab}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');
+  const t = TABS.find((x) => x[0] === tab); $('#titulo').textContent = t[1]; $('#sub').textContent = t[2];
+  const foco = document.activeElement?.id; $('#vista').innerHTML = V[tab](); if (foco === 'simtxt') $('#simtxt')?.focus();
+}
+async function go(t) { tab = t; if (t === 'chats') chats = await api('conversaciones' + (todo ? '?todo=1' : '')).catch(() => []); draw(); }
+async function add(t, c, extra = {}) { const b = { ...extra }; for (const [k, l] of c) { const v = prompt(l); if (v === null) return; if (v !== '') b[k] = v; } await api(t, { method: 'POST', body: b }); load(); }
+async function patch(t, id, b) { await api(`${t}/${id}`, { method: 'PATCH', body: b }); load(); }
+async function precio(t, id) { const v = prompt('Nuevo precio (solo número, en pesos)'); if (v && !isNaN(+v)) patch(t, id, { precio: +v }); }
+async function probar() {
+  const i = $('#simtxt'), t = i.value.trim(); if (!t) return;
+  sim.push({ r: 'user', t }); i.value = ''; draw();
+  const r = await api('simular', { method: 'POST', body: { texto: t } }).catch((e) => ({ respuesta: 'Error: ' + e.message }));
+  sim.push({ r: 'assistant', t: r.respuesta }); chats = await api('conversaciones' + (todo ? '?todo=1' : '')).catch(() => chats);
+  const [c, ci, rn] = await Promise.all([api('citas'), api('inscripciones'), api('renovaciones')]); D.citas = c; D.inscripciones = ci; D.renovaciones = rn; draw();
+}
+load(); setInterval(() => { if (tab !== 'chats') load(); }, 60000);
+</script>
+</body>
+</html>
