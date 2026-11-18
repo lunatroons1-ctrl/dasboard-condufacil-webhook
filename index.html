@@ -77,8 +77,7 @@ tr:last-child td{border:0}
 
 <script>
 // ⚠️ Cambia esta URL por el dominio de tu servicio en Railway
-const API = 'https://TU-SERVICIO.up.railway.app';
-
+const API = 'const API = 'https://condufacil-webhook-production.up.railway.app';
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
